@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tennis Jasoos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Meta Pixel Code -->
+
+    <!-- End Meta Pixel Code -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background: #1a0813;
+            overflow-x: hidden;
+            color: white;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            box-sizing: border-box;
+        }
+
+        /* full-bg line waves canvas */
+        #waveCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* card */
+
+        .card {
+            width: 360px;
+            max-width: 95vw;
+            padding: 45px 30px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            box-shadow: 0 0 60px #85395355;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding-top: 50px;
+                padding-bottom: 50px;
+            }
+            .card {
+                width: 100%;
+                max-width: 98vw;
+                padding: 28px 8px;
+                border-radius: 18px;
+            }
+            .profile-wrap {
+                width: 90px;
+                height: 90px;
+            }
+            .profile {
+                width: 80px;
+                height: 80px;
+            }
+            h2 {
+                font-size: 18px;
+            }
+            .btn {
+                padding: 14px 18px;
+                font-size: 16px;
+            }
+            .text {
+                font-size: 12px;
+            }
+        }
+
+        /* profile */
+
+        .profile-wrap {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 15px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .profile-spinner {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 50%;
+            z-index: 1;
+            pointer-events: none;
+            background: conic-gradient(#00e5b400 0deg, #bd557800 120deg, #fff 240deg, #bd5578 360deg);
+            filter: blur(1.5px);
+            animation: spinBorder 2.2s linear infinite;
+        }
+        .profile {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid #853953;
+            object-fit: cover;
+            position: relative;
+            z-index: 2;
+            /* Remove animatedShadow from profile */
+        }
+        @keyframes spinBorder {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes animatedShadow {
+            0% {
+                box-shadow: 0 0 10px 2px #85395399, 0 0 16px 4px #00e5b499;
+            }
+            50% {
+                box-shadow: 0 0 16px 4px #00e5b4cc, 0 0 20px 6px #85395399;
+            }
+            100% {
+                box-shadow: 0 0 10px 2px #85395399, 0 0 16px 4px #00e5b499;
+            }
+        }
+
+        /* heading */
+
+        h2 {
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        /* text */
+
+        .text {
+            font-size: 14px;
+            line-height: 1.6;
+            opacity: .9;
+            margin-bottom: 30px;
+        }
+
+        /* feature badges */
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 10px;
+            border-radius: 50px;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.15);
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 0.2px;
+        }
+
+        .join-footer {
+            margin-top: 14px;
+            font-size: 12px;
+            opacity: 0.55;
+            text-align: center;
+            letter-spacing: 0.3px;
+        }
+
+        /* CTA button */
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px 40px;
+            border-radius: 20px;
+            background: #bd5578;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            position: relative;
+            animation: pulse 1.6s ease-in-out infinite;
+            box-shadow: 0 0 10px 2px #853953;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 10px 2px #853953; }
+            20% { transform: scale(1.08); box-shadow: 0 0 18px 6px #853953; }
+            40% { transform: scale(1); }
+            60% { transform: scale(1.05); box-shadow: 0 0 4px 4px #8a4b95b3}
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* circular timer */
+
+        .timer {
+            margin-top: 25px;
+            font-size: 14px;
+            opacity: .9;
+        }
+
+        /* disclaimer */
+
+        .disclaimer {
+            margin-top: 20px;
+            font-size: 11px;
+            opacity: .6;
+            text-align: center;
+        }
+
+        .ads {
+            margin-top: 6px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .ads a {
+            color: #00f5ff;
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <canvas id="waveCanvas"></canvas>
+
+    <script>
+    (function(){
+        const canvas = document.getElementById('waveCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resize(){
+            canvas.width  = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        /* define wave lines */
+        const waves = [
+            { amp:38, period:0.008, speed:0.0018, yFrac:0.18, color:'rgba(189,85,120,0.35)', width:1.8, offset:0 },
+            { amp:28, period:0.010, speed:0.0025, yFrac:0.30, color:'rgba(133,57,83,0.30)', width:1.4, offset:1 },
+            { amp:50, period:0.006, speed:0.0013, yFrac:0.45, color:'rgba(189,85,120,0.20)', width:2.2, offset:2 },
+            { amp:22, period:0.013, speed:0.0030, yFrac:0.58, color:'rgba(255,138,176,0.25)', width:1.2, offset:3 },
+            { amp:42, period:0.007, speed:0.0020, yFrac:0.70, color:'rgba(133,57,83,0.22)', width:1.8, offset:4 },
+            { amp:30, period:0.011, speed:0.0015, yFrac:0.82, color:'rgba(189,85,120,0.18)', width:1.5, offset:5 },
+            { amp:55, period:0.005, speed:0.0010, yFrac:0.92, color:'rgba(255,138,176,0.15)', width:2.5, offset:6 },
+        ];
+
+        let t = 0;
+        function draw(){
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            waves.forEach(w => {
+                ctx.beginPath();
+                ctx.lineWidth   = w.width;
+                ctx.strokeStyle = w.color;
+                const baseY = canvas.height * w.yFrac;
+                for(let x = 0; x <= canvas.width; x += 2){
+                    const y = baseY + Math.sin(x * w.period + t * w.speed * 60 + w.offset) * w.amp;
+                    x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+            });
+            t += 1;
+            requestAnimationFrame(draw);
+        }
+        draw();
+    })();
+    </script>
+
+    <div>
+
+        <div class="card">
+
+            <div class="profile-wrap">
+                <span class="profile-spinner"></span>
+                <img src="tennis-profile.jpg" class="profile">
+            </div>
+
+            <h2>👑TENNIS JASOOS👑</h2>
+
+            <p style="padding-bottom: 20px; padding-top: 15px;">Join the exclusive community and be a part of something extraordinary.</p>
+
+
+            <div class="badges">
+                <span class="badge">🎾 Tennis Predictions</span>
+                <span class="badge">🏆 ATP &amp; WTA Tips</span>
+                <span class="badge">🎯 Daily Picks</span>
+            </div>
+
+            <a class="btn" href="https://t.me/+MJM3O6CFl9sxODQ1" target="_blank">
+
+                <i class="fab fa-telegram"></i>
+
+                Join Now Free
+
+                <i class="fab fa-telegram"></i>
+
+            </a>
+
+            <p class="join-footer">Free to join &bull; Daily Tips &bull; 74% Win Rate</p>
+
+            <div class="timer">
+                Redirecting in <span id="rscount">15</span> seconds...
+            </div>
+
+        </div>
+
+        <div class="disclaimer">
+
+            This channel is for educational and informational purposes only.
+
+        </div>
+
+    </div>
+
+    <script>
+
+        let time = 15;
+
+        let counter = document.getElementById("count");
+
+        setInterval(() => {
+
+            time--;
+
+            counter.innerText = time;
+
+            if (time <= 0) {
+
+                window.location.href = "https://t.me/+MJM3O6CFl9sxODQ1";
+
+            }
+
+        }, 1000);
+
+    </script>
+
+</body>
+
+</html>
